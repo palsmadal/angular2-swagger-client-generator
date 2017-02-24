@@ -25,6 +25,7 @@ var Generator = (function () {
         this.LogMessage('Reading Mustache templates');
 
         this.templates = {
+            'interface': fs.readFileSync(__dirname + "/../templates/angular2-service.interface.mustache", 'utf-8'),
             'class': fs.readFileSync(__dirname + "/../templates/angular2-service.mustache", 'utf-8'),
             'model': fs.readFileSync(__dirname + "/../templates/angular2-model.mustache", 'utf-8'),
             'models_export': fs.readFileSync(__dirname + "/../templates/angular2-models-export.mustache", 'utf-8')
@@ -40,11 +41,25 @@ var Generator = (function () {
         if (this.initialized !== true)
             this.initialize();
 
+        this.generateInterface();
         this.generateClient();
         this.generateModels();
         this.generateCommonModelsExportDefinition();
 
         this.LogMessage('API client generated successfully');
+    };
+
+    Generator.prototype.generateInterface = function () {
+        if (this.initialized !== true)
+            this.initialize();
+
+        // generate main API client interface
+        this.LogMessage('Rendering interface template for API');
+        var result = this.renderLintAndBeautify(this.templates.interface, this.viewModel, this.templates);
+
+        var outfile = this._outputPath + "/" + "index.ts";
+        this.LogMessage('Creating output file for interface', outfile);
+        fs.writeFileSync(outfile, result, 'utf-8')
     };
 
     Generator.prototype.generateClient = function () {
