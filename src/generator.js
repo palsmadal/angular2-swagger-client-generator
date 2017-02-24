@@ -57,7 +57,7 @@ var Generator = (function () {
         this.LogMessage('Rendering interface template for API');
         var result = this.renderLintAndBeautify(this.templates.interface, this.viewModel, this.templates);
 
-        var outfile = this._outputPath + "/" + "index.ts";
+        var outfile = this._outputPath + "/" + "index.interface.ts";
         this.LogMessage('Creating output file for interface', outfile);
         fs.writeFileSync(outfile, result, 'utf-8')
     };
