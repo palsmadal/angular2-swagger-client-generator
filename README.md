@@ -21,13 +21,15 @@ or
 
 From commandline run:
 ```
-a2apigen -s [yopur/path/to/swagger.json]
+a2apigen -s [yopur/path/to/swagger.json] -c [className]
 ```
 
 or
 ```
-a2apigen -u [url/of/your/swagger.json]
+a2apigen -u [url/of/your/swagger.json] -c [className]
 ```
+
+If parameter -c is not provided, class name will be ApiClient Service.
 
 ## Example usage:
 
