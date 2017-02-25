@@ -8,10 +8,11 @@ var _ = require('lodash');
 
 var Generator = (function () {
 
-    function Generator(swaggerfile, outputpath, className) {
+    function Generator(swaggerfile, outputpath, className, generate) {
         this._className = className;
         this._swaggerfile = swaggerfile;
         this._outputPath = outputpath;
+        this._generate = generate;
     }
 
     Generator.prototype.Debug = false;
@@ -42,11 +43,29 @@ var Generator = (function () {
         if (this.initialized !== true)
             this.initialize();
 
-        this.generateInterface();
-        this.generateClient();
-        this.generateModels();
-        this.generateCommonModelsExportDefinition();
+        for (var i = 0; i < this._generate.length; i++) {
+            var param = this._generate[i];
+            this.LogMessage("Generate file: " + param);
 
+            if (param == 'F') {
+                this.LogMessage("Generating full package.");                        
+                this.generateInterface();
+                this.generateClient();
+                this.generateModels();
+                this.generateCommonModelsExportDefinition();
+            }
+            else if (param == 'M') {
+                this.generateModels();
+                this.generateCommonModelsExportDefinition();
+            }
+            else if (param == 'I') {
+                this.generateInterface();
+            }
+            else if (param == 'C') {
+                this.generateClient();
+            }
+        }
+        
         this.LogMessage('API client generated successfully');
     };
 
