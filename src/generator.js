@@ -8,7 +8,8 @@ var _ = require('lodash');
 
 var Generator = (function () {
 
-    function Generator(swaggerfile, outputpath) {
+    function Generator(swaggerfile, outputpath, className) {
+        this._className = className;
         this._swaggerfile = swaggerfile;
         this._outputPath = outputpath;
     }
@@ -141,6 +142,8 @@ var Generator = (function () {
         var swagger = this.swaggerParsed;
         var authorizedMethods = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'];
         var data = {
+            className: this._className,
+            interfaceName: "I" + this._className,
             isNode: false,
             description: (swagger.info && swagger.info.description) ? swagger.info.description : '',
             isSecure: swagger.securityDefinitions !== undefined,
