@@ -21,15 +21,16 @@ or
 
 From commandline run:
 ```
-a2apigen -s [your/path/to/swagger.json] -c [className]
+a2apigen -s [your/path/to/swagger.json] -c [className] -g [GenerateParameter]
 ```
 
 or
 ```
-a2apigen -u [url/of/your/swagger.json] -c [className]
+a2apigen -u [url/of/your/swagger.json] -c [className] -g [GenerateParameter]
 ```
 
 If parameter -c is not provided, class name will be ApiClient Service.
+Available values for parameter -g are I, M, C or F, as well as you can combine them.  
 
 ## Parameters
 
