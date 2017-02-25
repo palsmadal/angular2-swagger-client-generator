@@ -60,6 +60,8 @@ if (!fs.existsSync(outputdir))
 
 var sourceFile = argv.source;
 
+var className = argv.className || 'ApiClientService';
+
 if (fromUrl) {
     var request = require('request');
     var path = require('path');
@@ -76,14 +78,14 @@ if (fromUrl) {
 
             fs.writeFileSync(dest, body, 'utf-8');
 
-            var g = new genRef.Generator(dest, outputdir);
+            var g = new genRef.Generator(dest, outputdir, className);
             g.Debug = true;
             g.generateAPIClient();
         });
 }
 else {
     //Do Job
-    var g = new genRef.Generator(sourceFile, outputdir);
+    var g = new genRef.Generator(sourceFile, outputdir, className);
     g.Debug = true;
     g.generateAPIClient();
 }

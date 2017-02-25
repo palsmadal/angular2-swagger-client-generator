@@ -8,7 +8,8 @@ var _ = require('lodash');
 
 var Generator = (function () {
 
-    function Generator(swaggerfile, outputpath) {
+    function Generator(swaggerfile, outputpath, className) {
+        this._className = className;
         this._swaggerfile = swaggerfile;
         this._outputPath = outputpath;
     }
