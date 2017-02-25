@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 /**
  * Created with angular2-swagger-client-generator v{{&version}}
  */
-export class ApiClientService {
+export class ApiClientService implements IApiClientService {
 	domain:string;
 
   constructor(public http: Http){
