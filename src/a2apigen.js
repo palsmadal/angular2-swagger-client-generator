@@ -14,10 +14,14 @@ var optimist = require('optimist')
     .alias('s', 'source')
     .alias('u', 'url')
     .alias('o', 'outputpath')
+    .alias('c', 'className')
+    .alias ('g', 'generate')
     .describe('s', 'Path to your swagger.json file')
     .describe('u', 'Url of your swagger.json file')
-    .describe('o', 'Path where to store generated files');
-
+    .describe('o', 'Path where to store generated files')
+    .describe('c', 'Class name for Api client')
+    .describe('g', 'What to generate, F for full (default), I for interfaces, M for models')
+    
 var fs = require('fs');
 
 var genRef = require('../lib/generator');
