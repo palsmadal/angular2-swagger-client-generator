@@ -142,6 +142,8 @@ var Generator = (function () {
         var swagger = this.swaggerParsed;
         var authorizedMethods = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'];
         var data = {
+            className: this._className,
+            interfaceName: "I" + this._className,
             isNode: false,
             description: (swagger.info && swagger.info.description) ? swagger.info.description : '',
             isSecure: swagger.securityDefinitions !== undefined,
