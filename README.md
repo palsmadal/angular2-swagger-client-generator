@@ -30,15 +30,21 @@ a2apigen -u [url/of/your/swagger.json] -c [className] -g [GenerateParameter]
 ```
 
 If parameter -c is not provided, class name will be ApiClient Service.
+
 Available values for parameter -g are I, M, C or F, as well as you can combine them.  
 
 ## Parameters
 
 Options:
+
   -s, --source      Path to your swagger.json file
+
   -u, --url         Url of your swagger.json file
+
   -o, --outputpath  Path where to store generated files
+
   -c, --className   Class name for Api client
+
   -g, --generate    What to generate, F for full (default), I for interfaces, M for models, C for classes
 
 ## Example usage:
