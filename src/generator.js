@@ -2,6 +2,7 @@
 
 var fs = require('fs');
 var Mustache = require('mustache');
+var YAML = require('js-yaml');
 //var beautify = require('js-beautify').js_beautify;
 //var Linter = require('tslint');
 var _ = require('lodash');
@@ -27,9 +28,10 @@ var Generator = (function () {
             this.swaggerParsed = JSON.parse(swaggerfilecontent);
         }
         catch (ex) {
-            this.LogMessage('Parsing Swagger YAML');
             try {
-                this.swaggerParsed = JSON.parse(JSON.stringify(YAML.eval(swaggerfilecontent)));
+                this.LogMessage('File not valid JSON - trying to parse YAML');
+                this.LogMessage('Parsing Swagger YAML');                
+                this.swaggerParsed = JSON.parse(JSON.stringify(YAML.safeLoad(swaggerfilecontent)));
             }
             catch (iex) {
                 throw iex;
