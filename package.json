@@ -1,22 +1,22 @@
 {
-  "name": "angular2-swagger-client-generator",
-  "version": "0.0.21",
+  "name": "swagger2ng2",
+  "version": "0.0.22",
   "description": "Angular 2 API client generator from swagger json",
-  "homepage": "https://github.com/nvdnkpr/angular2-swagger-client-generator",
+  "homepage": "https://github.com/syron/angular2-swagger-client-generator",
   "main": "index.js",
   "bin": {
     "a2apigen": "./bin/a2apigen.js"
   },
   "author": {
-    "name": "Navid Nikpour",
-    "email": "navid@nikpour.com"
+    "name": "Robert Mayer",
+    "email": "rwlmayer@gmail.com"
   },
   "bugs": {
-    "url": "https://github.com/nvdnkpr/angular2-swagger-client-generator/issues"
+    "url": "https://github.com/syron/angular2-swagger-client-generator/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/nvdnkpr/angular2-swagger-client-generator.git"
+    "url": "git://github.com/syron/angular2-swagger-client-generator.git"
   },
   "keywords": [
     "swagger",
