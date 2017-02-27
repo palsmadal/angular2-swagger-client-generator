@@ -8,11 +8,12 @@ var _ = require('lodash');
 
 var Generator = (function () {
 
-    function Generator(swaggerfile, outputpath, className, generate) {
+    function Generator(swaggerfile, outputpath, className, generate, modelInterfaces) {
         this._className = className;
         this._swaggerfile = swaggerfile;
         this._outputPath = outputpath;
         this._generate = generate;
+        this._modelInterfaces = modelInterfaces;
     }
 
     Generator.prototype.Debug = false;
