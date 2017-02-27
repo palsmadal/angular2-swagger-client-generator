@@ -9,7 +9,7 @@
 
 // requirements
 var optimist = require('optimist')
-    .usage('Usage: a2apigen -s path/to/your/swagger.json')
+    .usage('Usage: swagger2ng2 -s path/to/your/swagger.json')
     .alias('h', 'help')
     .alias('s', 'source')
     .alias('u', 'url')
