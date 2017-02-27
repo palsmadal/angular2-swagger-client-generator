@@ -1,11 +1,11 @@
 {
   "name": "swagger2ng2",
-  "version": "0.0.22",
+  "version": "0.0.24",
   "description": "Angular 2 API client generator from swagger json",
   "homepage": "https://github.com/syron/angular2-swagger-client-generator",
   "main": "index.js",
   "bin": {
-    "a2apigen": "./bin/a2apigen.js"
+    "swagger2ng2": "./bin/a2apigen.js"
   },
   "author": {
     "name": "Robert Mayer",
@@ -30,7 +30,7 @@
   ],
   "license": "APACHE",
   "scripts": {
-    "a2apigen": "a2apigen -s swagger.json",
+    "swagger2ng2": "swagger2ng2 -s swagger.json",
     "build": "gulp"
   },
   "dependencies": {

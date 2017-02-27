@@ -21,12 +21,12 @@ or
 
 From commandline run:
 ```
-a2apigen -s [your/path/to/swagger.json] -c [className] -g [GenerateParameter]
+swagger2ng2 -s [your/path/to/swagger.json] -c [className] -g [GenerateParameter]
 ```
 
 or
 ```
-a2apigen -u [url/of/your/swagger.json] -c [className] -g [GenerateParameter]
+swagger2ng2 -u [url/of/your/swagger.json] -c [className] -g [GenerateParameter]
 ```
 
 If parameter -c is not provided, class name will be ApiClient Service.
@@ -51,7 +51,7 @@ Options:
 
 This command will generate API client described in swagger.json file to ./out folder
 ```
-a2apigen -s .\tests\apis\swagger.json -o ./out
+swagger2ng2 -s .\tests\apis\swagger.json -o ./out
 ```
 
 or from repository directory run:
