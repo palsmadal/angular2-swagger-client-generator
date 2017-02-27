@@ -22,8 +22,19 @@ var Generator = (function () {
         this.LogMessage('Reading Swagger file', this._swaggerfile);
         var swaggerfilecontent = fs.readFileSync(this._swaggerfile, 'UTF-8');
 
-        this.LogMessage('Parsing Swagger JSON');
-        this.swaggerParsed = JSON.parse(swaggerfilecontent);
+        try {
+            this.LogMessage('Parsing Swagger JSON');
+            this.swaggerParsed = JSON.parse(swaggerfilecontent);
+        }
+        catch (ex) {
+            this.LogMessage('Parsing Swagger YAML');
+            try {
+                this.swaggerParsed = JSON.parse(YAML.eval(swaggerfilecontent));
+            }
+            catch (iex) {
+                throw iex;
+            }
+        }
 
         this.LogMessage('Reading Mustache templates');
 
