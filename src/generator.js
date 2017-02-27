@@ -29,7 +29,7 @@ var Generator = (function () {
         catch (ex) {
             this.LogMessage('Parsing Swagger YAML');
             try {
-                this.swaggerParsed = JSON.parse(YAML.eval(swaggerfilecontent));
+                this.swaggerParsed = JSON.parse(JSON.stringify(YAML.eval(swaggerfilecontent)));
             }
             catch (iex) {
                 throw iex;
