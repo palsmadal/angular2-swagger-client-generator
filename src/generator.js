@@ -9,7 +9,16 @@ var _ = require('lodash');
 
 var Generator = (function () {
 
-    function Generator(swaggerfile, outputpath, className, generate, modelInterfaces, fileName, modelPath) {
+    function Generator(swaggerfile, outputpath, className, generate, modelInterfaces, fileName, modelPath, createModelPath) {
+        console.log("swaggerfile: "  + swaggerfile);
+        console.log("outputpath: "  + outputpath);
+        console.log("className: "  + className);
+        console.log("generate: "  + generate);
+        console.log("modelInterfaces: "  + modelInterfaces);
+        console.log("fileName: "  + fileName);
+        console.log("modelPath: "  + modelPath);
+        console.log("createModelPath: "  + createModelPath);
+        
         this._className = className;
         this._swaggerfile = swaggerfile;
         this._outputPath = outputpath;
@@ -17,6 +26,7 @@ var Generator = (function () {
         this._modelInterfaces = modelInterfaces;
         this._fileName = fileName;
         this._modelPath = modelPath;
+        this._createModelPath = createModelPath;
     }
 
     Generator.prototype.Debug = false;
@@ -116,8 +126,12 @@ var Generator = (function () {
 
         if (this.initialized !== true)
             this.initialize();
-
-        var outputdir = this._outputPath + '/models';
+        
+        var outputdir = "";
+        if (this._createModelPath)
+            outputdir = this._outputPath + '/models';
+        else
+            outputdir = this._outputPath;
 
         if (!fs.existsSync(outputdir))
             fs.mkdirSync(outputdir);
@@ -186,7 +200,8 @@ var Generator = (function () {
             domain: (swagger.schemes && swagger.schemes.length > 0 && swagger.host) ? swagger.schemes[0] + '://' + swagger.host + (swagger.basePath || '') : '',
             methods: [],
             definitions: [],
-            modelPath: this._modelPath
+            modelPath: this._modelPath,
+            createModelPath: this._createModelPath
         };
 
         _.forEach(swagger.paths, function (api, path) {

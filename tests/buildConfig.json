@@ -1,10 +1,10 @@
 {
-    "source": "",
-    "outputPath": "",
-    "className": "",
-    "generate": "I",
-    "modelInterfaces": "STATIC PATH",
-    "fileName": "",
-    "modelPath": "",
+    "source": "tests\\apis\\swagger_yaml.yaml",
+    "outputPath": ".\\output",
+    "className": null,
+    "generate": null,
+    "modelInterfaces": null,
+    "fileName": null,
+    "modelPath": null,
     "createModelPath": false
 }

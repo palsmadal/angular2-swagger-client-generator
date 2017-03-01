@@ -78,10 +78,10 @@ var createModelPath = true;
 if (useBuildConfig) {
     buildConfigFile = argv.buildConfig;
 
-    var fileContent = fs.readFileSync(this._swaggerfile, 'UTF-8');
+    var fileContent = fs.readFileSync(buildConfigFile, 'UTF-8');
     var jsonFileContent = JSON.parse(fileContent);
 
-    outputdir = jsonFileContent.outputpath;
+    outputdir = jsonFileContent.outputPath; 
     sourceFile = jsonFileContent.source;
     className = jsonFileContent.className || 'ApiClientService';
     generate = jsonFileContent.generate || 'F';
@@ -92,10 +92,6 @@ if (useBuildConfig) {
 }
 else {
     outputdir = argv.outputpath || './output';
-
-    if (!fs.existsSync(outputdir))
-        fs.mkdirSync(outputdir);
-
     sourceFile = argv.source;
     className = argv.className || 'ApiClientService';
     generate = argv.generate || 'F';
@@ -103,6 +99,9 @@ else {
     fileName = argv.fileName || "index";
     modelPath = argv.modelPath || './models';
 }
+
+if (!fs.existsSync(outputdir))
+    fs.mkdirSync(outputdir);
 
 if (fromUrl) {
     var request = require('request');
