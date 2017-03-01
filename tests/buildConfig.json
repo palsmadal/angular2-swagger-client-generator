@@ -3,9 +3,13 @@
     "outputPath": ".\\output",
     "className": null,
     "generate": null,
-    "modelInterfaces": null,
     "fileName": null,
     "modelPath": null,
     "createModelPath": true,
-    "createModelExportFile": true
+    "createModelExportFile": true,
+    "modelInterfaces": {
+        "implementInterfaces": true,
+        "path": "tests\\apis\\modelInterfaces",
+        "interfacePrefix": "server."
+    }
 }

@@ -16,7 +16,6 @@ var optimist = require('optimist')
     .alias('o', 'outputpath')
     .alias('c', 'className')
     .alias('g', 'generate')
-    .alias('m', 'modelInterfaces')
     .alias('f', 'fileName')
     .alias('p', 'modelPath')
     .alias('b', 'buildConfig')
@@ -25,7 +24,6 @@ var optimist = require('optimist')
     .describe('o', 'Path where to store generated files')
     .describe('c', 'Class name for Api client')
     .describe('g', 'What to generate, F for full (default), I for interfaces, M for models and C for classes')
-    .describe('m', 'Path where model interfaces are stored')
     .describe('f', 'The filename of the generated service')
     .describe('p', 'Relative path to external models if used')
     .describe('b', 'Path to your swagger2ng2 configuration file.');
@@ -69,7 +67,7 @@ var outputdir = "";
 var sourceFile = "";
 var className = "";
 var generate = "";
-var modelInterfaces = "";
+var modelInterfaces = null;
 var fileName = "";
 var modelPath = "";
 var buildConfigFile = "";
@@ -97,7 +95,6 @@ else {
     sourceFile = argv.source;
     className = argv.className || 'ApiClientService';
     generate = argv.generate || 'F';
-    modelInterfaces = argv.modelInterfaces || null;
     fileName = argv.fileName || "index";
     modelPath = argv.modelPath || './models';
 }
