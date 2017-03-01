@@ -19,6 +19,7 @@ var optimist = require('optimist')
     .alias('m', 'modelInterfaces')
     .alias('f', 'fileName')
     .alias('p', 'modelPath')
+    .alias('b', 'buildConfig')
     .describe('s', 'Path to your swagger.json file')
     .describe('u', 'Url of your swagger.json file')
     .describe('o', 'Path where to store generated files')
@@ -26,7 +27,8 @@ var optimist = require('optimist')
     .describe('g', 'What to generate, F for full (default), I for interfaces, M for models and C for classes')
     .describe('m', 'Path where model interfaces are stored')
     .describe('f', 'The filename of the generated service')
-    .describe('p', 'Relative path to external models if used');
+    .describe('p', 'Relative path to external models if used')
+    .describe('b', 'Path to your swagger2ng2 configuration file.');
 
 var fs = require('fs');
 
@@ -50,31 +52,57 @@ if (argv.help) {
 // Check requirements
 var fromSource = false;
 var fromUrl = false;
+var useBuildConfig = false;
+
 if (typeof argv.source !== 'undefined' && argv.source !== true)
     fromSource = true;
 else if (typeof argv.url !== 'undefined' && argv.url !== true)
     fromUrl = true;
+else if (typeof argv.buildConfig !== 'undefined' && argv.buildConfig !== true)
+    useBuildConfig = true;
 else {
-    stderr('Swagger.json file (-s) or url (-u) must be specified. See --help');
+    stderr('Swagger.json file (-s) or url (-u) or buildconfig (-b) must be specified. See --help');
     process.exit(1);
 }
 
-var outputdir = argv.outputpath || './output';
+var outputdir = "";
+var sourceFile = "";
+var className = "";
+var generate = "";
+var modelInterfaces = "";
+var fileName = "";
+var modelPath = "";
+var buildConfigFile = "";
+var createModelPath = true;
 
-if (!fs.existsSync(outputdir))
-    fs.mkdirSync(outputdir);
+if (useBuildConfig) {
+    buildConfigFile = argv.buildConfig;
 
-var sourceFile = argv.source;
+    var fileContent = fs.readFileSync(this._swaggerfile, 'UTF-8');
+    var jsonFileContent = JSON.parse(fileContent);
 
-var className = argv.className || 'ApiClientService';
+    outputdir = jsonFileContent.outputpath;
+    sourceFile = jsonFileContent.source;
+    className = jsonFileContent.className || 'ApiClientService';
+    generate = jsonFileContent.generate || 'F';
+    modelInterfaces = jsonFileContent.modelInterfaces || null;
+    fileName = jsonFileContent.fileName || "index";
+    modelPath = jsonFileContent.modelPath || './models';
+    createModelPath = jsonFileContent.createModelPath || false;
+}
+else {
+    outputdir = argv.outputpath || './output';
 
-var generate = argv.generate || 'F';
+    if (!fs.existsSync(outputdir))
+        fs.mkdirSync(outputdir);
 
-var modelInterfaces = argv.modelInterfaces || null;
-
-var fileName = argv.fileName || "index";
-
-var modelPath = argv.modelPath || './models';
+    sourceFile = argv.source;
+    className = argv.className || 'ApiClientService';
+    generate = argv.generate || 'F';
+    modelInterfaces = argv.modelInterfaces || null;
+    fileName = argv.fileName || "index";
+    modelPath = argv.modelPath || './models';
+}
 
 if (fromUrl) {
     var request = require('request');
@@ -92,14 +120,14 @@ if (fromUrl) {
 
             fs.writeFileSync(dest, body, 'utf-8');
 
-            var g = new genRef.Generator(dest, outputdir, className, generate, modelInterfaces, fileName, modelPath);
+            var g = new genRef.Generator(dest, outputdir, className, generate, modelInterfaces, fileName, modelPath, createModelPath);
             g.Debug = true;
             g.generateAPIClient();
         });
 }
 else {
     //Do Job
-    var g = new genRef.Generator(sourceFile, outputdir, className, generate, modelInterfaces, fileName, modelPath);
+    var g = new genRef.Generator(sourceFile, outputdir, className, generate, modelInterfaces, fileName, modelPath, createModelPath);
     g.Debug = true;
     g.generateAPIClient();
 }
