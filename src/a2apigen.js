@@ -74,6 +74,7 @@ var fileName = "";
 var modelPath = "";
 var buildConfigFile = "";
 var createModelPath = true;
+var createModelExportFile = true;
 
 if (useBuildConfig) {
     buildConfigFile = argv.buildConfig;
@@ -89,6 +90,7 @@ if (useBuildConfig) {
     fileName = jsonFileContent.fileName || "index";
     modelPath = jsonFileContent.modelPath || './models';
     createModelPath = jsonFileContent.createModelPath || false;
+    createModelExportFile = jsonFileContent.createModelExportFile || true;
 }
 else {
     outputdir = argv.outputpath || './output';
@@ -119,14 +121,14 @@ if (fromUrl) {
 
             fs.writeFileSync(dest, body, 'utf-8');
 
-            var g = new genRef.Generator(dest, outputdir, className, generate, modelInterfaces, fileName, modelPath, createModelPath);
+            var g = new genRef.Generator(dest, outputdir, className, generate, modelInterfaces, fileName, modelPath, createModelPath, createModelExportFile);
             g.Debug = true;
             g.generateAPIClient();
         });
 }
 else {
     //Do Job
-    var g = new genRef.Generator(sourceFile, outputdir, className, generate, modelInterfaces, fileName, modelPath, createModelPath);
+    var g = new genRef.Generator(sourceFile, outputdir, className, generate, modelInterfaces, fileName, modelPath, createModelPath, createModelExportFile);
     g.Debug = true;
     g.generateAPIClient();
 }

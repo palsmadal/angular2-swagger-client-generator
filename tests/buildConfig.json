@@ -6,5 +6,6 @@
     "modelInterfaces": null,
     "fileName": null,
     "modelPath": null,
-    "createModelPath": true
+    "createModelPath": true,
+    "createModelExportFile": true
 }

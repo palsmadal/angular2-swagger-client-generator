@@ -9,7 +9,7 @@ var _ = require('lodash');
 
 var Generator = (function () {
 
-    function Generator(swaggerfile, outputpath, className, generate, modelInterfaces, fileName, modelPath, createModelPath) {
+    function Generator(swaggerfile, outputpath, className, generate, modelInterfaces, fileName, modelPath, createModelPath, createModelExportFile) {
         console.log("swaggerfile: "  + swaggerfile);
         console.log("outputpath: "  + outputpath);
         console.log("className: "  + className);
@@ -27,6 +27,9 @@ var Generator = (function () {
         this._fileName = fileName;
         this._modelPath = modelPath;
         this._createModelPath = createModelPath;
+        this._createModelExportFile = createModelExportFile;
+
+    console.log("Should I create a model export file?", createModelExportFile);
     }
 
     Generator.prototype.Debug = false;
@@ -78,11 +81,13 @@ var Generator = (function () {
                 this.generateInterface();
                 this.generateClient();
                 this.generateModels();
-                this.generateCommonModelsExportDefinition();
+                if (this._createModelExportFile)
+                    this.generateCommonModelsExportDefinition();
             }
             else if (param == 'M') {
                 this.generateModels();
-                this.generateCommonModelsExportDefinition();
+                if (this._createModelExportFile)
+                    this.generateCommonModelsExportDefinition();
             }
             else if (param == 'I') {
                 this.generateInterface();
