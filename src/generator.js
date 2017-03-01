@@ -10,15 +10,6 @@ var _ = require('lodash');
 var Generator = (function () {
 
     function Generator(swaggerfile, outputpath, className, generate, modelInterfaces, fileName, modelPath, createModelPath, createModelExportFile) {
-        console.log("swaggerfile: "  + swaggerfile);
-        console.log("outputpath: "  + outputpath);
-        console.log("className: "  + className);
-        console.log("generate: "  + generate);
-        console.log("modelInterfaces: "  + modelInterfaces);
-        console.log("fileName: "  + fileName);
-        console.log("modelPath: "  + modelPath);
-        console.log("createModelPath: "  + createModelPath);
-        
         this._className = className;
         this._swaggerfile = swaggerfile;
         this._outputPath = outputpath;
@@ -29,7 +20,7 @@ var Generator = (function () {
         this._createModelPath = createModelPath;
         this._createModelExportFile = createModelExportFile;
 
-    console.log("Should I create a model export file?", createModelExportFile);
+        console.log("Should I create a model export file?", createModelExportFile);
     }
 
     Generator.prototype.Debug = false;
