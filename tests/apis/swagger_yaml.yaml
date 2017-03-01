@@ -38,11 +38,15 @@ definitions:
     required:
       - Id
       - Subject
+      - Modified
     properties:
       Id:
         type: number
       Subject:
         type: string
+      Modified:
+        type: string
+        format: date-time
   Error:
     required:
       - message

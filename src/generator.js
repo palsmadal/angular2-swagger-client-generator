@@ -326,7 +326,8 @@ var Generator = (function () {
                     isRef: _.has(propin, '$ref') || (propin.type === 'array' && _.has(propin.items, '$ref')),
                     isArray: propin.type === 'array',
                     type: null,
-                    typescriptType: null
+                    typescriptType: null,
+                    format: propin.format
                 };
 
                 if (property.isArray)
@@ -336,6 +337,10 @@ var Generator = (function () {
 
                 if (property.type === 'integer' || property.type === 'double')
                     property.typescriptType = 'number';
+                else if (property.type === 'string' && (property.format === 'date' || property.format === 'date-time'))
+                     {
+                         property.typescriptType = 'Date';
+                     }
                 else
                     property.typescriptType = property.type;
 
