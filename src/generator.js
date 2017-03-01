@@ -19,8 +19,6 @@ var Generator = (function () {
         this._modelPath = modelPath;
         this._createModelPath = createModelPath;
         this._createModelExportFile = createModelExportFile;
-
-        console.log("Should I create a model export file?", createModelExportFile);
     }
 
     Generator.prototype.Debug = false;
