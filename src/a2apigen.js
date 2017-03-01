@@ -17,12 +17,14 @@ var optimist = require('optimist')
     .alias('c', 'className')
     .alias('g', 'generate')
     .alias('m', 'modelInterfaces')
+    .alias('f', 'fileName')
     .describe('s', 'Path to your swagger.json file')
     .describe('u', 'Url of your swagger.json file')
     .describe('o', 'Path where to store generated files')
     .describe('c', 'Class name for Api client')
     .describe('g', 'What to generate, F for full (default), I for interfaces, M for models and C for classes')
     .describe('m', 'Path where model interfaces are stored')
+    .describe('f', 'The filename of the generated service');
 
 var fs = require('fs');
 
@@ -68,6 +70,8 @@ var generate = argv.generate || 'F';
 
 var modelInterfaces = argv.modelInterfaces || null;
 
+var fileName = argv.fileName || "index";
+
 if (fromUrl) {
     var request = require('request');
     var path = require('path');
@@ -84,14 +88,14 @@ if (fromUrl) {
 
             fs.writeFileSync(dest, body, 'utf-8');
 
-            var g = new genRef.Generator(dest, outputdir, className, generate, modelInterfaces);
+            var g = new genRef.Generator(dest, outputdir, className, generate, modelInterfaces, fileName);
             g.Debug = true;
             g.generateAPIClient();
         });
 }
 else {
     //Do Job
-    var g = new genRef.Generator(sourceFile, outputdir, className, generate, modelInterfaces);
+    var g = new genRef.Generator(sourceFile, outputdir, className, generate, modelInterfaces, fileName);
     g.Debug = true;
     g.generateAPIClient();
 }

@@ -9,12 +9,13 @@ var _ = require('lodash');
 
 var Generator = (function () {
 
-    function Generator(swaggerfile, outputpath, className, generate, modelInterfaces) {
+    function Generator(swaggerfile, outputpath, className, generate, modelInterfaces, fileName) {
         this._className = className;
         this._swaggerfile = swaggerfile;
         this._outputPath = outputpath;
         this._generate = generate;
         this._modelInterfaces = modelInterfaces;
+        this._fileName = fileName;
     }
 
     Generator.prototype.Debug = false;
@@ -91,7 +92,7 @@ var Generator = (function () {
         this.LogMessage('Rendering interface template for API');
         var result = this.renderLintAndBeautify(this.templates.interface, this.viewModel, this.templates);
 
-        var outfile = this._outputPath + "/" + "index.interface.ts";
+        var outfile = this._outputPath + "/" + this._fileName + ".interface.ts";
         this.LogMessage('Creating output file for interface', outfile);
         fs.writeFileSync(outfile, result, 'utf-8')
     };
@@ -104,7 +105,7 @@ var Generator = (function () {
         this.LogMessage('Rendering template for API');
         var result = this.renderLintAndBeautify(this.templates.class, this.viewModel, this.templates);
 
-        var outfile = this._outputPath + "/" + "index.ts";
+        var outfile = this._outputPath + "/" + this._fileName + ".ts";
         this.LogMessage('Creating output file', outfile);
         fs.writeFileSync(outfile, result, 'utf-8')
     };
