@@ -1,5 +1,5 @@
 /* tslint:disable */
-import { {{#definitions}}{{name}}{{^last}}, {{/last}}{{/definitions}} } from './models';
+import { {{#definitions}}{{name}}{{^last}}, {{/last}}{{/definitions}} } from {{&modelPath}};
 import { Observable } from 'rxjs';
 
 /**

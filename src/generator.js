@@ -9,13 +9,14 @@ var _ = require('lodash');
 
 var Generator = (function () {
 
-    function Generator(swaggerfile, outputpath, className, generate, modelInterfaces, fileName) {
+    function Generator(swaggerfile, outputpath, className, generate, modelInterfaces, fileName, modelPath) {
         this._className = className;
         this._swaggerfile = swaggerfile;
         this._outputPath = outputpath;
         this._generate = generate;
         this._modelInterfaces = modelInterfaces;
         this._fileName = fileName;
+        this._modelPath = modelPath;
     }
 
     Generator.prototype.Debug = false;
@@ -184,7 +185,8 @@ var Generator = (function () {
             swagger: swagger,
             domain: (swagger.schemes && swagger.schemes.length > 0 && swagger.host) ? swagger.schemes[0] + '://' + swagger.host + (swagger.basePath || '') : '',
             methods: [],
-            definitions: []
+            definitions: [],
+            modelPath: this._modelPath
         };
 
         _.forEach(swagger.paths, function (api, path) {

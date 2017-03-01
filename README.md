@@ -47,6 +47,10 @@ Options:
 
   -g, --generate    What to generate, F for full (default), I for interfaces, M for models, C for classes
 
+  -f, --fileName    Example '-f index' will generate both index.ts and index.interface.ts. 
+
+  -p, --modelPath   If used, p provides a relative path to the place where models are stored.
+
 ## Example usage:
 
 This command will generate API client described in swagger.json file to ./out folder
