@@ -2,7 +2,7 @@
     "source": "tests\\apis\\swagger_yaml.yaml",
     "outputPath": ".\\output",
     "className": null,
-    "generate": null,
+    "generate": "IM",
     "fileName": null,
     "modelPath": null,
     "createModelPath": true,

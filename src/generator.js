@@ -1,6 +1,7 @@
 'use strict';
 
 var fs = require('fs');
+var path = require('path');
 var Mustache = require('mustache');
 var YAML = require('js-yaml');
 //var beautify = require('js-beautify').js_beautify;
@@ -120,6 +121,17 @@ var Generator = (function () {
 
         if (this.initialized !== true)
             this.initialize();
+
+        var implementInterfaces = false;
+        var interfacePath = "";
+        var interfacePrefix = "";
+
+        if (typeof this._modelInterfaces !== "undefined" && this._modelInterfaces.implementInterfaces) {
+            implementInterfaces = true;
+                
+            interfacePath = this._modelInterfaces.path;
+            interfacePrefix = this._modelInterfaces.interfacePrefix;
+        }
         
         var outputdir = "";
         if (this._createModelPath)
@@ -133,6 +145,16 @@ var Generator = (function () {
         // generate API models
         _.forEach(this.viewModel.definitions, function (definition, defName) {
             that.LogMessage('Rendering template for model: ', definition.name);
+
+
+
+            if (implementInterfaces) {
+
+                // search in interfacePath for interface file.
+                that.walk(interfacePath);
+
+            }
+
             var result = that.renderLintAndBeautify(that.templates.model, definition, that.templates);
 
             var outfile = outputdir + "/" + definition.name + ".ts";
@@ -158,6 +180,21 @@ var Generator = (function () {
 
         this.LogMessage('Creating output file', outfile);
         fs.writeFileSync(outfile, result, 'utf-8')
+    };
+
+    Generator.prototype.walk = function(directoryName) {
+        fs.readdir(directoryName, function(e, files) {
+            files.forEach(function(file) {
+                fs.stat(directoryName + path.sep + file, function(e, f) {
+
+                    if (f.isDirectory()) {
+                    walk(directoryName + path.sep + file)
+                    } else {
+                    console.log(' - ' + file)
+                    }
+                })
+            })
+        })
     };
 
     Generator.prototype.renderLintAndBeautify = function (tempalte, model) {
