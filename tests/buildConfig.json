@@ -1,15 +1,20 @@
 {
-    "source": "tests\\apis\\swagger_yaml.yaml",
+    "source": ".\\tests\\apis\\swagger_yaml.yaml",
     "outputPath": ".\\output",
     "className": null,
     "generate": "IM",
     "fileName": null,
     "modelPath": null,
-    "createModelPath": true,
-    "createModelExportFile": true,
+    "createModelPath": false,
+    "createModelExportFile": false,
     "modelInterfaces": {
         "implementInterfaces": true,
-        "path": "tests\\apis\\modelInterfaces",
+        "path": [
+            { 
+                "model": "Event",
+                "interface": "..\\tests\\modelInterfaces\\Event.interface.d.ts" 
+            }
+        ],
         "interfacePrefix": "server."
     }
 }

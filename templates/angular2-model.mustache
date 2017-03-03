@@ -1,9 +1,19 @@
 /* tslint:disable */
+{{#interfaceLink}}
+/// <reference path="{{interfaceLink}}" />
+{{/interfaceLink}}
+
+
 {{#refs}}
 import { {{type}} } from "./{{type}}"
 {{/refs}}
 
+{{#refInterface}}
+export class {{&name}} implements {{&refInterface}} {
+{{/refInterface}}
+{{^refInterface}}
 export class {{&name}} {
+{{/refInterface}}
 {{#properties}}
 	{{#isArray}}
 		{{name}}: {{typescriptType}}[];

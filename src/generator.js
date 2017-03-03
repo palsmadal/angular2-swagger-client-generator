@@ -146,13 +146,15 @@ var Generator = (function () {
         _.forEach(this.viewModel.definitions, function (definition, defName) {
             that.LogMessage('Rendering template for model: ', definition.name);
 
-
-
+            
             if (implementInterfaces) {
-
-                // search in interfacePath for interface file.
-                that.walk(interfacePath);
-
+                //console.log(interfacePath);
+                interfacePath.forEach(function (i) {
+                    if (i.model == definition.name) {
+                        definition.interfaceLink = i.interface;
+                        definition.refInterface = that._modelInterfaces.interfacePrefix + i.model;
+                    }
+                });
             }
 
             var result = that.renderLintAndBeautify(that.templates.model, definition, that.templates);
@@ -175,26 +177,29 @@ var Generator = (function () {
 
         this.LogMessage('Rendering common models export');
         var result = this.renderLintAndBeautify(this.templates.models_export, this.viewModel, this.templates);
-
+        
         var outfile = outputdir + "/models.ts";
 
         this.LogMessage('Creating output file', outfile);
         fs.writeFileSync(outfile, result, 'utf-8')
     };
 
-    Generator.prototype.walk = function(directoryName) {
-        fs.readdir(directoryName, function(e, files) {
-            files.forEach(function(file) {
-                fs.stat(directoryName + path.sep + file, function(e, f) {
+    Generator.prototype.walk = function(directoryName, filesArr) {
+        var that = this;
+        var filesInDir = fs.readdirSync(directoryName);
+        filesInDir.forEach(function(file) {
+            var f = fs.statSync(directoryName + path.sep + file);
 
-                    if (f.isDirectory()) {
-                    walk(directoryName + path.sep + file)
-                    } else {
-                    console.log(' - ' + file)
-                    }
-                })
-            })
-        })
+            if (f.isDirectory()) {
+                var foundFilesInChild = that.walk(directoryName + path.sep + file, []);
+                foundFilesInChild.forEach(function(ffic){
+                    filesArr.push(directoryName + path.sep + ffic);
+                });
+            } else {    
+                filesArr.push(file);
+            }
+        });
+        return filesArr;
     };
 
     Generator.prototype.renderLintAndBeautify = function (tempalte, model) {
@@ -364,6 +369,8 @@ var Generator = (function () {
 
             var definition = {
                 name: defName,
+                interfaceLink: null,
+                refInterface: null,
                 properties: [],
                 refs: [],
             };

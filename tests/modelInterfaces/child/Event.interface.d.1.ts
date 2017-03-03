@@ -1,6 +1,6 @@
-declare module server {
+export module server {
 
-    interface Event {
+    export interface Event {
             Id: number;
             Subject: string;
             Modified: Date;
