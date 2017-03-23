@@ -397,6 +397,8 @@ var Generator = (function () {
                      {
                          property.typescriptType = 'Date';
                      }
+                else if (property.type === 'object') 
+                    property.typescriptType = 'any';
                 else
                     property.typescriptType = property.type;
 
