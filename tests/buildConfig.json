@@ -12,6 +12,8 @@
         "path": [
             { 
                 "model": "Event",
+                "customClassName": "EventModel",
+                "customFileName": "event.model", //will extend with .ts automatically
                 "interface": "..\\tests\\modelInterfaces\\Event.interface.d.ts" 
             }
         ],

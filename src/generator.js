@@ -146,20 +146,26 @@ var Generator = (function () {
         _.forEach(this.viewModel.definitions, function (definition, defName) {
             that.LogMessage('Rendering template for model: ', definition.name);
 
+            var customClassName = "";
+            var customFileName = definition.name;
             
             if (implementInterfaces) {
-                //console.log(interfacePath);
                 interfacePath.forEach(function (i) {
                     if (i.model == definition.name) {
                         definition.interfaceLink = i.interface;
                         definition.refInterface = that._modelInterfaces.interfacePrefix + i.model;
+
+                        if (typeof i.customClassName !== "undefined")
+                            customClassName = i.customClassName;
+                        if (typeof i.customFileName !== "undefined")
+                            customFileName = i.customFileName;
                     }
                 });
             }
 
             var result = that.renderLintAndBeautify(that.templates.model, definition, that.templates);
-
-            var outfile = outputdir + "/" + definition.name + ".ts";
+            
+            var outfile = outputdir + "/" + customFileName + ".ts";
 
             that.LogMessage('Creating output file', outfile);
             fs.writeFileSync(outfile, result, 'utf-8')
