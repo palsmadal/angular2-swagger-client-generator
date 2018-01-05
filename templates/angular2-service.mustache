@@ -79,7 +79,7 @@ export class {{className}} implements {{interfaceName}} {
 	{{^isSingleton}}* @param {{=<% %>=}}{<%&type%>}<%={{ }}=%> {{&camelCaseName}} - {{&description}}{{/isSingleton}}
 	{{/parameters}}
 	*/
-	public {{&methodName}}({{#parameters}}{{&camelCaseName}}: {{typescriptType}}{{^last}}, {{/last}}{{/parameters}}){{#returns}}: Observable<{{returns}}>{{/returns}} {
+	public {{&methodName}}({{#parameters}}{{&camelCaseName}}: {{typescriptType}}{{^last}}, {{/last}}{{/parameters}}){{#returns}}:{{#isArray}} Observable<{{typescriptType}}[]>{{/isArray}}{{^isArray}} Observable<{{typescriptType}}>{{/isArray}}{{/returns}} {
 		let payload = {};
 		let params = new URLSearchParams();
 		let headers = this.getDefaultHeaders();

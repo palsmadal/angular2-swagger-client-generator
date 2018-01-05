@@ -31,7 +31,8 @@
   "license": "APACHE",
   "scripts": {
     "swagger2ng2": "swagger2ng2 -s swagger.json",
-    "build": "gulp"
+    "build": "gulp",
+    "postinstall": "gulp"
   },
   "dependencies": {
     "gulp": "^3.9.1",
