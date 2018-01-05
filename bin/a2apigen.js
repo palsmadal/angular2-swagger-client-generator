@@ -20,6 +20,7 @@ var optimist = require('optimist')
     .alias('f', 'fileName')
     .alias('p', 'modelPath')
     .alias('b', 'buildConfig')
+    .alias('t', 'templates')
     .describe('s', 'Path to your swagger.json file')
     .describe('u', 'Url of your swagger.json file')
     .describe('o', 'Path where to store generated files')
@@ -28,7 +29,8 @@ var optimist = require('optimist')
     .describe('m', 'Path where model interfaces are stored')
     .describe('f', 'The filename of the generated service')
     .describe('p', 'Relative path to external models if used')
-    .describe('b', 'Path to your swagger2ng2 configuration file.');
+    .describe('b', 'Path to your swagger2ng2 configuration file.')
+    .describe('t', 'Path to your custom template files {interface, class, model, models_export}.');
 
 var fs = require('fs');
 
@@ -75,6 +77,7 @@ var modelPath = "";
 var buildConfigFile = "";
 var createModelPath = true;
 var createModelExportFile = true;
+var customTemplateFiles = {};
 
 if (useBuildConfig) {
     buildConfigFile = argv.buildConfig;
@@ -91,6 +94,7 @@ if (useBuildConfig) {
     modelPath = jsonFileContent.modelPath || './models';
     createModelPath = jsonFileContent.createModelPath || false;
     createModelExportFile = jsonFileContent.createModelExportFile || true;
+    customTemplateFiles = jsonFileContent.customTemplateFiles || {};
 }
 else {
     outputdir = argv.outputpath || './output';
@@ -100,6 +104,7 @@ else {
     modelInterfaces = argv.modelInterfaces || null;
     fileName = argv.fileName || "index";
     modelPath = argv.modelPath || './models';
+    customTemplateFiles = argv.customTemplateFiles || {};
 }
 
 if (!fs.existsSync(outputdir))
@@ -121,14 +126,14 @@ if (fromUrl) {
 
             fs.writeFileSync(dest, body, 'utf-8');
 
-            var g = new genRef.Generator(dest, outputdir, className, generate, modelInterfaces, fileName, modelPath, createModelPath, createModelExportFile);
+            var g = new genRef.Generator(dest, outputdir, className, generate, modelInterfaces, fileName, modelPath, createModelPath, createModelExportFile, customTemplateFiles);
             g.Debug = true;
             g.generateAPIClient();
         });
 }
 else {
     //Do Job
-    var g = new genRef.Generator(sourceFile, outputdir, className, generate, modelInterfaces, fileName, modelPath, createModelPath, createModelExportFile);
+    var g = new genRef.Generator(sourceFile, outputdir, className, generate, modelInterfaces, fileName, modelPath, createModelPath, createModelExportFile, customTemplateFiles);
     g.Debug = true;
     g.generateAPIClient();
 }
