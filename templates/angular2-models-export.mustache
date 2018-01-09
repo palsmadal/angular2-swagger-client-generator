@@ -1,8 +1,7 @@
 {{#definitions}}
 {{#createModelPath}}
-export { {{name}} } from './models/{{name}}';
+export { {{name}} {{#enums}}, {{name}} {{/enums}} } from './models/{{name}}';
 {{/createModelPath}}
 {{^createModelPath}}
-export { {{name}} } from './{{name}}';
+export { {{name}} {{#enums}}, {{name}} {{/enums}} } from './{{name}}';
 {{/createModelPath}}
-{{/definitions}}

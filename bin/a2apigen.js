@@ -30,7 +30,7 @@ var optimist = require('optimist')
     .describe('f', 'The filename of the generated service')
     .describe('p', 'Relative path to external models if used')
     .describe('b', 'Path to your swagger2ng2 configuration file.')
-    .describe('t', 'Path to your custom template files {interface, class, model, models_export}.');
+    .describe('t', 'Path to your custom template files {interface, enum, class, model, models_export}.');
 
 var fs = require('fs');
 

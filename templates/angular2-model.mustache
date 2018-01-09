@@ -1,12 +1,31 @@
 /* tslint:disable */
+{{#interfaceLink}}
+/// <reference path="{{interfaceLink}}" />
+{{/interfaceLink}}
+
+
+import { List } from 'linqts';
 {{#refs}}
-import { {{type}} } from "./{{type}}"
+import { {{type}} } from "./{{path}}"
 {{/refs}}
 
+{{#enums}}
+export enum {{name}} {
+	{{#values}}
+	{{name}} = '{{value}}',
+	{{/values}}
+}
+{{/enums}}
+
+{{#refInterface}}
+export class {{&name}} implements {{&refInterface}} {
+{{/refInterface}}
+{{^refInterface}}
 export class {{&name}} {
+{{/refInterface}}
 {{#properties}}
 	{{#isArray}}
-		{{name}}: {{typescriptType}}[];
+		{{name}}: List<{{typescriptType}}>;
 	{{/isArray}}
 	{{^isArray}}
 		{{name}}: {{typescriptType}};
@@ -15,7 +34,7 @@ export class {{&name}} {
 
 {{#refs}}
 	{{#isArray}}
-		{{name}}: {{typescriptType}}[];
+		{{name}}: List<{{typescriptType}}>;
 	{{/isArray}}
 	{{^isArray}}
 		{{name}}: {{typescriptType}};
